@@ -1,29 +1,21 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-int main()
-{
-    int number , array1[20] ;
-    for ( int n2 = 1 ; cin >> number && !cin.eof() ; n2 ++ )
-    {
-        long long int max1 = 0 , sum = 1 ;
-        for ( int n = 0 ; n < number ; n ++ )
-        {
-            cin >> array1[n] ;
-        }
-        for ( int i = 0 ; i < number ; i ++ )
-        {
-            for ( int j = i ; j < number ; j ++ )
-            {
-                sum *= array1[j] ;
-                if ( sum > max1 )
-                {
-                    max1 = sum ;
-                }
-            }
-            sum = 1 ;
-        }
-        cout << "Case #" << n2 << ": The maximum product is " << max1 << "." << endl << endl  ;
+int main(){
+  long long int amount, arr[20], nowMin, nowMax, result;
+  for (int caseNumber = 1; cin >> amount && !cin.eof(); caseNumber ++){
+    for (int i = 0; i < amount; i++ ){
+      cin >> arr[i] ;
     }
+    result = nowMin = nowMax = arr[0];
+    for (int i = 1; i < amount; i++ ){
+      long long int temp = nowMax;
+      nowMax = max(max(nowMax * arr[i], nowMin * arr[i]), arr[i]);
+      nowMin = min(min(temp * arr[i], nowMin * arr[i]), arr[i]);
+      result = max(nowMax, result);
+    }
+    if ( result < 0 )
+      result = 0;
+    cout << "Case #" << caseNumber << ": The maximum product is " << result << "." << endl << endl  ;
+  }
 }
